@@ -17,6 +17,7 @@ import CartEmpty from "./CartEmpty";
 
 
 const CartPage = () => {
+
   const dispatch = useDispatch();
   const [totalPrice, setTotalPrice] = useState(0);
   const navigate = useNavigate();

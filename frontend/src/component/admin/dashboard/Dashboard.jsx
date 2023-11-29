@@ -29,7 +29,7 @@ const Dashboard = () => {
           mt={5}
           p={10}
         >
-          <GridItem w="100%" h="250" bg="white" color="#000000" border={'1px solid black '} >
+          <GridItem w="100%" h="250" bg="white" color="#000000" border={'1px solid black '}  >
             <Stat textAlign={"center"} p={5} lineHeight={10}>
               <StatLabel fontSize={15} fontWeight={"bold"}>
                 Active Users

@@ -78,8 +78,8 @@ const handleDelete = () => {
       <CloseButton onClick={handleDelete} size='md'  />
         </Box>
         <Stack direction={'row'} align={'center'} >
-        <Text fontSize={'20px'}>  ₹{Price * qty} </Text>
-        <p  className="cutPrice" fontSize={'15px'} > ₹{ogPrice * qty} </p>
+        <Text fontSize={'20px'}>  ₹{Price} </Text>
+        <p  className="cutPrice" fontSize={'15px'} > ₹{ogPrice} </p>
         </Stack>
         <Text as={'sub'} textAlign={'right'} fontSize={'14px'} >free shipping</Text>
       </Stack>

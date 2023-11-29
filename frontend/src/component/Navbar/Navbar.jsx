@@ -7,14 +7,19 @@ import { FaUser } from "react-icons/fa";
 import { GiHamburgerMenu } from "react-icons/gi";
 import logo from "./logo.png";
 import { Link, useNavigate } from "react-router-dom";
-import { Box, Text, useToast } from "@chakra-ui/react";
+import { Avatar, Box, Text, useToast } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [show, setShow] = React.useState(false);
   // const [data, setData] = React.useState([]);
   const toast = useToast();
   const navigate = useNavigate();
+  const { isAuth, token,isError } = useSelector((store) => {
+    return store.userLoginReducer;
+  });
+  const fashionData=JSON.parse(localStorage.getItem("fashion"))||null
 
   const logout = () => {
     localStorage.clear();
@@ -25,7 +30,7 @@ const Navbar = () => {
       duration: 9000,
       isClosable: true,
     });
-    navigate("/");
+    window.location='/'
   };
 
   return (
@@ -266,39 +271,50 @@ const Navbar = () => {
                 }}
               >
                 <AiOutlineShoppingCart className={styles.icon} />
-                <span id={styles.count}>0</span>
+                {/* <span id={styles.count}>0</span> */}
                 <br />
                 Cart
               </Link>
             </li>
             <li>
-              <Menu>
+              <Menu>{
                 <MenuButton style={{ fontSize: "10px", color: "black" }}>
-                  <a style={{
-                  display: "flex",
-                  flexDirection: "column",
-                  placeItems: "center",
-                }}>
-                    <FaUser
-                      className={styles.icon}
-                    />
-                    <br />
-                    PROFILE
-                  </a>
-                </MenuButton>
+                <a style={{
+                display: "flex",
+                flexDirection: "column",
+                placeItems: "center",
+              }}>{
+                fashionData?<Avatar size={'sm'} name={fashionData.name}/>: <FaUser
+                className={styles.icon}
+              />
+              }
+                 
+                  <br />
+                  PROFILE
+                </a>
+              </MenuButton>
+                }
+                
                 <MenuList>
-                  <MenuItem>
+                {
+                    !fashionData? <MenuItem>
                     <Link to={'/signup'} >User Register</Link>
-                  </MenuItem>
+                  </MenuItem>:null
+                  }
                   <MenuItem>
                     <Link to={'/login'} >User Login</Link>
                   </MenuItem>
-                  <MenuItem>
-                    <Link to={'/adminsignup'} >Admin Register</Link>
-                  </MenuItem>
+                  
+                 
                   <MenuItem>
                     <Link to={'/adminlogin'} >Admin Login</Link>
                   </MenuItem>
+                  {
+                    fashionData?<MenuItem>
+                    <Link onClick={logout}>Logout</Link>
+                  </MenuItem>:null
+                  }
+                  
                 </MenuList>
               </Menu>
             </li>

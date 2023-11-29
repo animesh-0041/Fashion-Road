@@ -17,12 +17,13 @@ export default function AdminNavbar() {
   return (
     <>
       <Box
-        bg={useColorModeValue("#e8e8e8")}
+        bg={colorMode=='light'?"#e8e8e8":'#BDBDBD'}
         color={"black"}
         fontWeight={500}
         px={4}
         position={"sticky"}
         top={0}
+        zIndex={'popover'}
       >
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
           <Link to="/adminDashboard">

@@ -70,19 +70,38 @@ export default function Login() {
 
       //! ALLCLEAR GO FURTHER
     } else {
-
-      dispatch(loginData(formState)).then(()=>{
-        console.log(isError)
-        
-          toast({
+      dispatch(loginData(formState)).then((res)=>{
+        // console.log(isError)
+        console.log(res);
+        if(res.msg=="login successful"){
+            toast({
             title: "Successfully Login",
             position: positions,
             status: statuses[0],
             isClosable: true,
           })
+          let obj={
+            token:res.token,
+            name:res.name,
+            email:res.email
+          }
+          localStorage.setItem("fashion",JSON.stringify(obj))
         setFormState(initialState);
         navigate("/")
-        window.location.reload()
+        // window.location.reload()
+        }
+        else{
+          toast({
+            title: "Incorrect password!",
+            position: 'top',
+            status: "error",
+            isClosable: true,
+          })
+        }
+
+        
+      }).catch((err)=>{
+        console.log(err);
       })
 
       // console.log(formState);

@@ -13,6 +13,7 @@ export const getCartProducts = (dispatch) => {
     .get(`${baseUrl}/cart`, { headers: { Authorization: token } })
      
     .then((res) => {
+      console.log(res);
       dispatch({ type: GET_DATA, payload: res.data });
     })
     .catch((err) => {

@@ -3,18 +3,23 @@ import { LOGIN_FAILURE, LOGIN_REQUEST, LOGIN_SUCCESS } from "./actionType";
 
 export const loginData = (payload) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
-  try {
-    const res = await axios.post(
-      `https://clumsy-miniskirt-tuna.cyclic.app/users/login`,
-      payload
-    );
-
-    localStorage.setItem("userToken", JSON.stringify(res.data.token));
-    dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
-    return res
-  } catch {
-    dispatch({ type: LOGIN_FAILURE });
-  }
+   return axios.post(`https://clumsy-miniskirt-tuna.cyclic.app/users/login`,payload)
+    .then((res)=>{
+      if(res.data.msg=="login successful"){
+         dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
+         localStorage.setItem("userToken", JSON.stringify(res.data.token));
+      }
+        return res.data
+    })
+    .catch((err)=>{
+      dispatch({ type: LOGIN_FAILURE });
+     console.log(err);
+    })
+    // dispatch({ type: LOGIN_SUCCESS, payload: res.data.token });
+    // return res
+ 
+    
+  
 };
 
 // https://clumsy-miniskirt-tuna.cyclic.app/users/login
